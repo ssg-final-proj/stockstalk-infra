@@ -9,6 +9,7 @@ terraform init
 terraform apply --auto-approve
 
 #### S3 버킷 생성됨, DynamoDB 테이블 생성됨
+#### 생성된 S3와 DynamoDB 관련 output 참고하여 terraform 폴더의 backend_s3.tf 파일 수정
 
 # terraform 폴더 들어가서 init, apply <br>
 terraform init
