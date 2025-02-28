@@ -46,11 +46,11 @@ resource "aws_security_group" "tf_rds_sg" {
 
 # RDS instance resource. 
 resource "aws_db_instance" "tf_rds" {
-  allocated_storage           = 20
-  engine                      = "mysql"
-  username                    = "admin"
-  engine_version              = "8.0"
-  instance_class              = "db.t3.micro"
+  allocated_storage           = var.rds_storage
+  engine                      = var.rds_engine
+  username                    = var.rds_username
+  engine_version              = var.rds_engine_version
+  instance_class              = var.rds_instance_class
   db_name                     = "mydb"
   manage_master_user_password = true   # 이것만 있어도 Secrets Manager 생성됨 (이름이 랜덤 UUID가 포함된 패턴으로 생성됨 : rds!db-<랜덤한_UUID>)
   multi_az                    = true
