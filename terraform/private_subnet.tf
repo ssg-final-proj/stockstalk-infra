@@ -26,7 +26,7 @@ resource "aws_subnet" "tf_pri_sub_2" {
 # Subnet (Private, RDS)
 resource "aws_subnet" "tf_rds_sub_1" {
   vpc_id                 = aws_vpc.tf_vpc.id
-  cidr_block             = "10.0.5.0/24"
+  cidr_block             = var.rds_subnets["subnet_1"]
   availability_zone      = "ap-northeast-2a"
 
   tags = {
@@ -36,7 +36,7 @@ resource "aws_subnet" "tf_rds_sub_1" {
 
 resource "aws_subnet" "tf_rds_sub_2" {
   vpc_id                 = aws_vpc.tf_vpc.id
-  cidr_block             = "10.0.6.0/24"
+  cidr_block             = var.rds_subnets["subnet_2"]
   availability_zone      = "ap-northeast-2c"
 
   tags = {
