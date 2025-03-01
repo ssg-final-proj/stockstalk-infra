@@ -10,6 +10,18 @@ variable "vpc_cidr" {
   default     = "10.0.0.0/16"
 }
 
+variable "route53_zone_name" {
+  description = "Route 53 private hosted zone name"
+  type        = string
+  default     = "tf.private.com"
+}
+
+variable "rds_dns_name" {
+  description = "RDS DNS record name"
+  type        = string
+  default     = "rds.tf.private.com"
+}
+
 variable "public_subnets" {
   description = "List of public subnet CIDRs"
   type        = map(string)
@@ -70,4 +82,5 @@ variable "rds_username" {
 variable "rds_db_name" {
   description = "RDS 데이터베이스 이름"
   type        = string
+  default     = "vss-db"
 }
