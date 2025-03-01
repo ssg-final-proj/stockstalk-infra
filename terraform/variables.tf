@@ -66,3 +66,8 @@ variable "rds_username" {
   type        = string
   default     = "admin"
 }
+
+variable "rds_db_name" {
+  description = "RDS 데이터베이스 이름"
+  type        = string
+}
