@@ -40,17 +40,22 @@ jobs:
       run: |
         curl -X POST -H 'Content-type: application/json' --data '{"text":"Terraform Addons folder is being updated automatically."}' ${{ secrets.SLACK_WEBHOOK_URL }}
         
-    # 7. Terraform 초기화 (백엔드 설정)
+    # 5. Terraform 초기화 (백엔드 설정)
     - name: Terraform Init for Addons
       run: terraform init -reconfigure
       working-directory: ./terraform-addons
 
-    # 8. Terraform Plan (변경사항 미리 확인)
+    # 6. Terraform Plan (변경사항 미리 확인)
     - name: Terraform Plan for Addons
       run: terraform plan -out=tfplan
       working-directory: ./terraform-addons
 
-    # 9. Terraform Apply (자동 승인)
+    # 7. Terraform Apply (자동 승인)
     - name: Terraform Apply for Addons
       run: terraform apply -auto-approve tfplan
       working-directory: ./terraform-addons
+
+    # 8. Slack 알림 전송 (addons 작업 완료)
+    - name: Notify Addons Update Completion via Slack
+      run: |
+        curl -X POST -H 'Content-type: application/json' --data '{"text":"Terraform Addons folder update has been completed successfully."}' ${{ secrets.SLACK_WEBHOOK_URL }}
