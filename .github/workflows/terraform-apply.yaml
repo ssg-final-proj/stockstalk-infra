@@ -42,7 +42,7 @@ jobs:
     # 5. GitHub Secrets에서 JSON 읽고 terraform.tfvars로 저장
     - name: Create terraform.tfvars file
       run: |
-        echo '${{ secrets.TFVARS_JSON }}' > terraform-vpc/terraform.tfvars
+        echo '${{ secrets.VPC_TFVARS_JSON }}' > terraform-vpc/terraform.tfvars
 
     # 6. Terraform 초기화 (백엔드 설정)
     - name: Terraform Init for VPC
@@ -91,7 +91,7 @@ jobs:
     # 5. GitHub Secrets에서 JSON 읽고 terraform.tfvars로 저장
     - name: Create terraform.tfvars file
       run: |
-        echo '${{ secrets.TFVARS_JSON }}' > terraform-vpc/terraform.tfvars
+        echo '${{ secrets.ADDON_TFVARS_JSON }}' > terraform-vpc/terraform.tfvars
         
     # 6. Terraform 초기화 (백엔드 설정)
     - name: Terraform Init for Addons
