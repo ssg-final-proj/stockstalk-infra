@@ -1,2 +1,2 @@
 # stockstalk-infra
-![finalproject-AWS drawio (3)](https://github.com/user-attachments/assets/fdc4cd7a-0247-492e-9e24-beb1344a1496)
+![finalproject-AWS drawio](https://github.com/user-attachments/assets/d4f0af46-7bd6-4300-b2a2-88dd193a2f6f)
