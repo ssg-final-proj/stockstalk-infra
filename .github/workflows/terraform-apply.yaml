@@ -27,7 +27,7 @@ jobs:
         curl -X POST -H 'Content-type: application/json' --data '{"text":"Terraform Infra folder has been modified. Please review changes and manually trigger the workflow if needed."}' ${{ secrets.SLACK_WEBHOOK_URL }}
 
   terraform-vpc:
-    needs: notify-infra  # infra 작업이 완료된 후 실행되도록 설정
+    needs: terraform-infra  # infra 작업이 완료된 후 실행되도록 설정
     runs-on: ubuntu-latest
 
     if: github.event_name == 'push' && (contains(github.event.head_commit.modified, 'vpc/') || contains(github.event.head_commit.added, 'vpc/') || contains(github.event.head_commit.removed, 'vpc/'))
