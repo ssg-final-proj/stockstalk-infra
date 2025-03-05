@@ -41,6 +41,10 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-northeast-2
 
+    #  현재 디렉토리 확인 (디버깅용)
+    - name: Print Current Directory
+      run: pwd
+
 #    # 4. Terraform 초기화
 #    - name: Terraform Init
 #      run: terraform init \
@@ -54,8 +58,7 @@ jobs:
     # 4. Terraform 초기화 (각 폴더별 backend 설정)
     - name: Terraform Init for VPC
       if: matrix.folder == 'terraform-vpc'
-      run: |
-        terraform init \
+      run: terraform init \
           -backend-config="bucket=tf-terraform-state-bucket-apucpa4m" \
           -backend-config="key=terraform/vpc/terraform.tfstate" \
           -backend-config="region=ap-northeast-2" \
@@ -65,8 +68,7 @@ jobs:
 
     - name: Terraform Init for Infra
       if: matrix.folder == 'terraform-infra'
-      run: |
-        terraform init \
+      run: terraform init \
           -backend-config="bucket=tf-terraform-state-bucket-apucpa4m" \
           -backend-config="key=terraform/infra/terraform.tfstate" \
           -backend-config="region=ap-northeast-2" \
@@ -76,8 +78,7 @@ jobs:
 
     - name: Terraform Init for Addons
       if: matrix.folder == 'terraform-addons'
-      run: |
-        terraform init \
+      run: terraform init \
           -backend-config="bucket=tf-terraform-state-bucket-apucpa4m" \
           -backend-config="key=terraform/addons/terraform.tfstate" \
           -backend-config="region=ap-northeast-2" \
