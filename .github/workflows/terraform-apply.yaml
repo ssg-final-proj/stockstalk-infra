@@ -9,12 +9,12 @@ on:
 
 jobs:
   terraform:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  #  GitHub Actions 워크플로우가 실행될 때 사용할 가상 머신 환경으로, GitHub Actions를 사용할 경우 ubuntu-latest를 사용하는 것이 일반적임
     
     steps:
-    # 1. 저장소 체크아웃
+    # 1. GitHub Actions 워크플로우에서 저장소 코드 체크아웃(다운로드)
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3  # GitHub에서 제공하는 공식 액션 : 워크플로우가 실행될 때 저장소의 코드를 가져옴
 
     # 2. Terraform 설치
     - name: Setup Terraform
