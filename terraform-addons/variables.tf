@@ -1,13 +1,13 @@
 variable "s3_bucket_name" {
   description = "state 파일 저장할 s3 버킷 이름"
   type = string
-  default = "tf-terraform-state-bucket-XXXX"
+  default = "tf-terraform-state-bucket-apucpa4m"
 }
 
 variable "s3_bucket_key" {
   description = "state 파일 저장할 s3 버킷 key"
   type = string
-  default = "terraform/vpc/terraform.tfstate"
+  default = "terraform/addons/terraform.tfstate"
 }
 
 variable "s3_bucket_region" {
