@@ -16,11 +16,6 @@ jobs:
     strategy:
       matrix:
         folder: [terraform-vpc, terraform-infra, terraform-addons]  # 각 Terraform 디렉토리를 매트릭스로 처리
-#        backend_key: [
-#          "terraform/vpc/terraform.tfstate",
-#          "terraform/infra/terraform.tfstate",
-#          "terraform/addons/terraform.tfstate"
-#        ]  # 각 디렉토리에 대한 backend key 설정
 
     steps:
     # 1. 저장소 체크아웃
