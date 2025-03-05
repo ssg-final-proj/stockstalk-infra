@@ -56,10 +56,9 @@ jobs:
       run: echo "Terraform 디버그 로깅이 활성화되었습니다."
 
     - name: Display Terraform Debug Log
-        if: always()
-        run: |
-          echo "Terraform 디버그 로그 내용:"
-          cat ./terraform-debug.log
+      run:
+        echo "Terraform 디버그 로그 내용:"
+        cat ./terraform-debug.log
     
  
     # 6. Terraform Plan (변경사항 미리 확인)
