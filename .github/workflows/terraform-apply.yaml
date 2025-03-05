@@ -47,7 +47,7 @@ jobs:
     - name: Display tfvars contents
       run: |
         echo "terraform.tfvars 파일 내용:"
-        cat terraform.tfvars
+        cat ./terraform-vpc/terraform.tfvars
     
  
     # 6. Terraform Plan (변경사항 미리 확인)
