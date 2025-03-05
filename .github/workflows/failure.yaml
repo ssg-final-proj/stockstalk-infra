@@ -22,7 +22,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*워크플로우 실행 실패* ⚠️\n\n*저장소:* ${{ github.repository }}\n*워크플로우:* ${{ github.event.workflow_run.name }}\n*결과:* ${{ github.event.workflow_run.conclusion }}"
+                    "text": "⚠️*워크플로우 실행 실패*⚠️\n\n*저장소:* ${{ github.repository }}\n*워크플로우:* ${{ github.event.workflow_run.name }}\n*결과:* ${{ github.event.workflow_run.conclusion }}"
                   }
                 },
                 {
