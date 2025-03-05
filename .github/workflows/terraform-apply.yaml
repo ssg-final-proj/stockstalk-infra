@@ -36,17 +36,27 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-northeast-2
 
-    # 4. Terraform 초기화
+    # 4. 경로 확인 (오류 방지)
+    - name: Check Directory Exists
+      run: |
+        echo "Checking directory: ${{ github.workspace }}/${{ matrix.folder }}"
+        ls -al ${{ github.workspace }}
+        if [ ! -d "${{ github.workspace }}/${{ matrix.folder }}" ]; then 
+          echo "Error: Directory does not exist!"; 
+          exit 1; 
+        fi
+
+    # 5. Terraform 초기화
     - name: Terraform Init
       run: terraform init -reconfigure
       working-directory: ${{ github.workspace }}/${{ matrix.folder }}
 
-    # 5. Terraform Plan (변경사항 미리 확인)
+    # 6. Terraform Plan (변경사항 미리 확인)
     - name: Terraform Plan
       run: terraform plan
       working-directory: ${{ github.workspace }}/${{ matrix.folder }}
 
-    # 6. Terraform Apply (자동 승인)
+    # 7. Terraform Apply (자동 승인)
     - name: Terraform Apply
       run: terraform apply -auto-approve
       working-directory: ${{ github.workspace }}/${{ matrix.folder }}
