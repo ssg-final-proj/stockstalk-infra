@@ -64,7 +64,7 @@ jobs:
           -backend-config="region=ap-northeast-2" \
           -backend-config="dynamodb_table=tf-terraform-lock-table" \
           -reconfigure
-      working-directory: ./terraform-vpc
+      working-directory: ${{ github.workspace }}/${{ matrix.folder }}
 
     - name: Terraform Init for Infra
       if: matrix.folder == 'terraform-infra'
@@ -74,7 +74,7 @@ jobs:
           -backend-config="region=ap-northeast-2" \
           -backend-config="dynamodb_table=tf-terraform-lock-table" \
           -reconfigure
-      working-directory: ./terraform-infra
+      working-directory: ${{ github.workspace }}/${{ matrix.folder }}
 
     - name: Terraform Init for Addons
       if: matrix.folder == 'terraform-addons'
@@ -84,7 +84,7 @@ jobs:
           -backend-config="region=ap-northeast-2" \
           -backend-config="dynamodb_table=tf-terraform-lock-table" \
           -reconfigure
-      working-directory: ./terraform-addons
+      working-directory: ${{ github.workspace }}/${{ matrix.folder }}
 
     # 5. Terraform Plan (변경사항 미리 확인)
     - name: Terraform Plan
