@@ -5,12 +5,18 @@ on:
     branches: 
       - main  # main 브랜치에 푸시 될 때만 실행됨
     paths:
-      - 'terraform/**'  # terraform 폴더 내 파일이 변결될 때만 트리거
+      - 'terraform-vpc/**'  # terraform-vpc 폴더 내 파일 변경 시 트리거
+      - 'terraform-infra/**'  # terraform-infra 폴더 내 파일 변경 시 트리거
+      - 'terraform-addons/**'  # terraform-addons 폴더 내 파일 변경 시 트리거
 
 jobs:
   terraform:
     runs-on: ubuntu-latest  #  GitHub Actions 워크플로우가 실행될 때 사용할 가상 머신 환경으로, GitHub Actions를 사용할 경우 ubuntu-latest를 사용하는 것이 일반적임
-    
+
+    strategy:
+      matrix:
+        folder: [terraform-vpc, terraform-infra, terraform-addons]  # 각 Terraform 디렉토리를 매트릭스로 처리
+        
     steps:
     # 1. GitHub Actions 워크플로우에서 저장소 코드 체크아웃(다운로드)
     - name: Checkout code
@@ -32,15 +38,15 @@ jobs:
 
     # 4. Terraform 초기화
     - name: Terraform Init
-      run: terraform init -backend-config="key=terraform/state/terraform.tfstate"
-      working-directory: ./terraform
+      run: terraform init
+      working-directory: ./${{ matrix.folder }}  # 해당 디렉토리에서 명령어 실행
 
-    # 5. Terraform Plan (선택 사항) : 변경사항 미리 확인
+    # 5. Terraform Plan (변경사항 미리 확인)
     - name: Terraform Plan
       run: terraform plan -out=tfplan
-      working-directory: ./terraform
+      working-directory: ./${{ matrix.folder }}  # 해당 디렉토리에서 명령어 실행
 
     # 6. Terraform Apply (자동 승인)
     - name: Terraform Apply
       run: terraform apply -auto-approve tfplan
-      working-directory: ./terraform
+      working-directory: ./${{ matrix.folder }}  # 해당 디렉토리에서 명령어 실행
