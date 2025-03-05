@@ -46,8 +46,8 @@ jobs:
 
     - name: Display tfvars contents
       run: |
-        echo "terraform.tfvars 파일 내용:"
-        cat terraform.tfvars
+        echo "terraform-vpc.tfvars 파일 내용:"
+        cat terraform-vpc.tfvars
 
     - name: Enable Terraform Debug Logging
       env:
