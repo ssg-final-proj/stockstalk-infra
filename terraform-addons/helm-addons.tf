@@ -36,7 +36,7 @@ module "eks_blueprints_addons" {
   enable_aws_load_balancer_controller    = true
   # enable_cluster_proportional_autoscaler = true   # 이것 때문에 terraform apply 가 계속 오류났었음 (사용하면 HPA를 사용하지 않을 수도 있을 것 같아서 하고싶었는데 실패함)
   enable_karpenter                       = false
-  enable_kube_prometheus_stack           = false
+  enable_kube_prometheus_stack           = true
   enable_metrics_server                  = true
   enable_external_dns                    = true
   enable_cert_manager                    = true
