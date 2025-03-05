@@ -1,3 +1,16 @@
+name: Terraform Apply
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'terraform-vpc/**'
+      - 'terraform-infra/**'
+      - 'terraform-addons/**'
+
+  workflow_dispatch:  # 수동 실행 기능 추가
+
 jobs:
   notify-infra:
     runs-on: ubuntu-latest
