@@ -16,6 +16,11 @@ jobs:
     strategy:
       matrix:
         folder: [terraform-vpc, terraform-infra, terraform-addons]  # 각 Terraform 디렉토리를 매트릭스로 처리
+        backend_key: [
+          "terraform/vpc/terraform.tfstate",
+          "terraform/infra/terraform.tfstate",
+          "terraform/addons/terraform.tfstate"
+        ]  # 각 디렉토리에 대한 backend key 설정
 
     steps:
     # 1. 저장소 체크아웃
@@ -38,7 +43,12 @@ jobs:
 
     # 4. Terraform 초기화
     - name: Terraform Init
-      run: terraform init
+      run: terraform init \
+          -backend-config="bucket=tf-terraform-state-bucket-apucpa4m" \
+          -backend-config="key=${{ matrix.backend_key }}" \
+          -backend-config="region=ap-northeast-2" \
+          -backend-config="dynamodb_table=tf-terraform-lock-table" \
+          -reconfigure
       working-directory: ${{ github.workspace }}/${{ matrix.folder }}
 
     # 5. Terraform Plan (변경사항 미리 확인)
