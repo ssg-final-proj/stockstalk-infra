@@ -44,11 +44,6 @@ jobs:
       run: terraform init -reconfigure
       working-directory: ./terraform-vpc
 
-    - name: Display tfvars contents
-      run: |
-        echo "terraform-vpc.tfvars 파일 내용:"
-        cat terraform-vpc.tfvars
-
     - name: Enable Terraform Debug Logging
       env:
         TF_LOG: DEBUG
@@ -59,6 +54,11 @@ jobs:
       run:
         echo "Terraform 디버그 로그 내용:"
         cat ./terraform-debug.log
+
+    - name: Display tfvars contents
+      run: |
+        echo "terraform-vpc.tfvars 파일 내용:"
+        cat terraform-vpc.tfvars
     
  
     # 6. Terraform Plan (변경사항 미리 확인)
