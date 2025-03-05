@@ -14,7 +14,7 @@ on:
 jobs:
   terraform-infra:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && (contains(github.event.head_commit.modified, 'infra/') || contains(github.event.head_commit.added, 'infra/') || contains(github.event.head_commit.removed, 'infra/'))
+    if: github.event_name == 'push' && (contains(github.event.head_commit.modified, 'terraform-infra/') || contains(github.event.head_commit.added, 'terraform-infra/') || contains(github.event.head_commit.removed, 'terraform-infra/'))
 
     steps:
     # 1. 저장소 체크아웃
@@ -30,7 +30,7 @@ jobs:
     needs: terraform-infra  # infra 작업이 완료된 후 실행되도록 설정
     runs-on: ubuntu-latest
 
-    if: github.event_name == 'push' && (contains(github.event.head_commit.modified, 'vpc/') || contains(github.event.head_commit.added, 'vpc/') || contains(github.event.head_commit.removed, 'vpc/'))
+    if: github.event_name == 'push' && (contains(github.event.head_commit.modified, 'terraform-vpc/') || contains(github.event.head_commit.added, 'terraform-vpc/') || contains(github.event.head_commit.removed, 'terraform-vpc/'))
     
     steps:
     # 1. 저장소 체크아웃
@@ -75,7 +75,7 @@ jobs:
     needs: terraform-vpc  # vpc 작업이 완료된 후 실행되도록 설정
     runs-on: ubuntu-latest
 
-    if: github.event_name == 'push' && (contains(github.event.head_commit.modified, 'addons/') || contains(github.event.head_commit.added, 'addons/') || contains(github.event.head_commit.removed, 'addons/'))
+    if: github.event_name == 'push' && (contains(github.event.head_commit.modified, 'terraform-addons/') || contains(github.event.head_commit.added, 'terraform-addons/') || contains(github.event.head_commit.removed, 'terraform-addons/'))
     
     steps:
     # 1. 저장소 체크아웃
