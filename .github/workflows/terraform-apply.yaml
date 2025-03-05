@@ -46,7 +46,7 @@ jobs:
 
     - name: Display tfvars contents
       run: |
-        echo "terraform-vpc.tfvars 파일 내용:"
+        echo "terraform.tfvars 파일 내용:"
         cat terraform.tfvars
     
  
