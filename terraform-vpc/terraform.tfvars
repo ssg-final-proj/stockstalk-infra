@@ -29,8 +29,6 @@ rds_username = "admin"
 rds_db_name = "vss_db"
 rds_storage_type = "gp3"
 
-private_key_path = "/home/terraform/tf-bastion-key.pem"
-file_permission = "0600" # 소유자만 읽기/쓰기 가능
 bastion_ami_id = "ami-0a20b1b99b215fb27"
 bastion_instance_type = "t3.micro"
 
