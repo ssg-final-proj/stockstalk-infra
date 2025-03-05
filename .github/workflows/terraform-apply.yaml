@@ -37,20 +37,24 @@ jobs:
         aws-region: ap-northeast-2
 
     #  현재 디렉토리 확인 (디버깅용)
-    - name: Print Current Directory
-      run: pwd
+    - name: Print Current Directory and Files
+      run: |
+        echo "Current Directory:"
+        pwd
+        echo "Files:"
+        ls -l ./${{ matrix.folder }}
 
     # 4. Terraform 초기화 (각 폴더별 backend 설정)
     - name: Terraform Init for VPC
       run: terraform init -reconfigure
-      working-directory: ${{ github.workspace }}/${{ matrix.folder }}
+      working-directory: ./${{ matrix.folder }}
 
     # 5. Terraform Plan (변경사항 미리 확인)
     - name: Terraform Plan
       run: terraform plan -out=tfplan
-      working-directory: ${{ github.workspace }}/${{ matrix.folder }}
+      working-directory: ./${{ matrix.folder }}
 
     # 6. Terraform Apply (자동 승인)
     - name: Terraform Apply
       run: terraform apply -auto-approve tfplan
-      working-directory: ${{ github.workspace }}/${{ matrix.folder }}
+      working-directory: ./${{ matrix.folder }}
