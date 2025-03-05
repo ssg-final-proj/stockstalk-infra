@@ -1,0 +1,5 @@
+s3_bucket_name = "tf-terraform-state-bucket-apucpa4m"
+s3_bucket_key = "terraform/vpc/terraform.tfstate"
+s3_bucket_region = "ap-northeast-2"
+# dynamodb_table_name = "tf-terraform-lock-table"
+route53_hosted_zone_id = "Z0472590RI2YF5VD8TAZ"
