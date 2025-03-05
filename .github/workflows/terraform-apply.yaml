@@ -16,11 +16,6 @@ jobs:
     strategy:
       matrix:
         folder: [terraform-vpc, terraform-infra, terraform-addons]  # 각 Terraform 디렉토리를 매트릭스로 처리
-#        backend_key: [
-#          "terraform/vpc/terraform.tfstate",
-#          "terraform/infra/terraform.tfstate",
-#          "terraform/addons/terraform.tfstate"
-#        ]  # 각 디렉토리에 대한 backend key 설정
 
     steps:
     # 1. 저장소 체크아웃
@@ -41,57 +36,17 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-northeast-2
 
-#    # 4. Terraform 초기화
-#    - name: Terraform Init
-#      run: terraform init \
-#          -backend-config="bucket=tf-terraform-state-bucket-apucpa4m" \
-#          -backend-config="key=${{ matrix.backend_key }}" \
-#          -backend-config="region=ap-northeast-2" \
-#          -backend-config="dynamodb_table=tf-terraform-lock-table" \
-#          -reconfigure
-#      working-directory: ${{ github.workspace }}/${{ matrix.folder }}
-
-    # 4. Terraform 초기화 (각 폴더별 backend 설정)
-    - name: Terraform Init for VPC
-      if: matrix.folder == 'terraform-vpc'
-      run: |
-        terraform init \
-          -backend-config="bucket=tf-terraform-state-bucket-apucpa4m" \
-          -backend-config="key=terraform/vpc/terraform.tfstate" \
-          -backend-config="region=ap-northeast-2" \
-          -backend-config="dynamodb_table=tf-terraform-lock-table" \
-          -reconfigure
-      working-directory: ./terraform-vpc
-
-    - name: Terraform Init for Infra
-      if: matrix.folder == 'terraform-infra'
-      run: |
-        terraform init \
-          -backend-config="bucket=tf-terraform-state-bucket-apucpa4m" \
-          -backend-config="key=terraform/infra/terraform.tfstate" \
-          -backend-config="region=ap-northeast-2" \
-          -backend-config="dynamodb_table=tf-terraform-lock-table" \
-          -reconfigure
-      working-directory: ./terraform-infra
-
-    - name: Terraform Init for Addons
-      if: matrix.folder == 'terraform-addons'
-      run: |
-        terraform init \
-          -backend-config="bucket=tf-terraform-state-bucket-apucpa4m" \
-          -backend-config="key=terraform/addons/terraform.tfstate" \
-          -backend-config="region=ap-northeast-2" \
-          -backend-config="dynamodb_table=tf-terraform-lock-table" \
-          -reconfigure
-      working-directory: ./terraform-addons
+    # 4. Terraform 초기화
+    - name: Terraform Init
+      run: terraform init -reconfigure
+      working-directory: ${{ github.workspace }}/${{ matrix.folder }}
 
     # 5. Terraform Plan (변경사항 미리 확인)
     - name: Terraform Plan
-      run: terraform plan -out=tfplan
+      run: terraform plan
       working-directory: ${{ github.workspace }}/${{ matrix.folder }}
 
     # 6. Terraform Apply (자동 승인)
     - name: Terraform Apply
-      run: terraform apply -auto-approve tfplan
+      run: terraform apply -auto-approve
       working-directory: ${{ github.workspace }}/${{ matrix.folder }}
-      
