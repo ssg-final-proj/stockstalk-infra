@@ -9,6 +9,8 @@ on:
       - 'terraform-infra/**'  # terraform-infra 폴더 내 파일 변경 시 트리거
       - 'terraform-addons/**'  # terraform-addons 폴더 내 파일 변경 시 트리거
 
+  workflow_dispatch:  # 수동 실행 기능 추가
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
