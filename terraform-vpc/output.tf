@@ -9,9 +9,7 @@ output "rds_endpoint" {
 }
 
 
-
 # terraform-addons에서 사용할 변수들 추가됨
-
 output "cluster_name" {
   value = aws_eks_cluster.tf_eks_cluster.name
 }
