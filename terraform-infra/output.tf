@@ -19,3 +19,9 @@ output "dynamodb_table_name" {
 output "route53_hosted_zone_id" {
   value = aws_route53_zone.tf_route53_public.zone_id
 }
+
+# 리전
+output "region" {
+  description = "Provider 리전"
+  value = provider.aws.region
+}
