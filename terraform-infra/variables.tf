@@ -8,3 +8,8 @@ variable "file_permission" {
   description = "파일에 적용할 POSIX 권한"
   type        = string
 }
+
+variable "region" {
+  description = "생성할 리전"
+  type = string
+}
