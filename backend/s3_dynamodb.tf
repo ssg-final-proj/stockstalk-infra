@@ -1,7 +1,8 @@
 # 1. S3 버킷 생성
 # AWS에서 S3 버킷을 생성할 때 리전을 명시하지 않으면 기본값으로 "us-east-1" (버지니아 북부 리전) 에 생성됨
 resource "aws_s3_bucket" "tf_terraform_state_bucket" {
-  bucket = "tf-terraform-state-bucket-${random_string.suffix.result}"   # 원하는 버킷 이름 + 랜덤값
+  # bucket = "tf-terraform-state-bucket-${random_string.suffix.result}"   # 원하는 버킷 이름 + 랜덤값
+  bucket = "tf-terraform-state-bucket-vss-2025"
   force_destroy = true   # S3 버킷을 삭제할 때 자동으로 모든 객체와 버전을 삭제
 
   tags = {
@@ -11,11 +12,11 @@ resource "aws_s3_bucket" "tf_terraform_state_bucket" {
 }
 
 # 랜덤 접미사 생성 (고유한 버킷 이름 보장)
-resource "random_string" "suffix" {
-  length  = 8
-  special = false
-  upper   = false
-}
+# resource "random_string" "suffix" {
+#   length  = 8
+#   special = false
+#   upper   = false
+# }
 
 # S3 버킷 버전 관리 활성화
 resource "aws_s3_bucket_versioning" "tf_terraform_state_bucket_versioning" {
