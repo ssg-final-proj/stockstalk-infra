@@ -158,7 +158,7 @@ resource "aws_iam_role_policy_attachment" "external_dns_route53_attachment" {
 resource "aws_security_group" "tf_eks_node_group_sg" {
   name        = var.tf_eks_node_group_sg_name
   description = "EKS Node Group Security Group"
-  vpc_id      = aws_vpc.tf_vpc.id
+  vpc_id      = data.terraform_remote_state.network.outputs.vpc_id
 
   ingress {
     from_port       = 0
