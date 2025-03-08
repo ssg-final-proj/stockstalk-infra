@@ -4,17 +4,6 @@ variable "region" {
   type        = string
 }
 
-################ route53-private.tf ################
-variable "route53_zone_name" {
-  description = "Route 53 프라이빗 hosted zone 이름"
-  type        = string
-}
-
-variable "rds_dns_name" {
-  description = "RDS의 Route53 DNS 레코드 이름"
-  type        = string
-}
-
 ################ vpc.tf ################
 variable "vpc_cidr" {
   description = "VPC CIDR block"
