@@ -1,7 +1,7 @@
 resource "aws_route53_zone" "tf_route53_private" {
   name = var.route53_zone_name
   vpc {
-    vpc_id = aws_vpc.tf_vpc.id
+    vpc_id = data.terraform_remote_state.network.outputs.vpc_id
   }
 }
 
