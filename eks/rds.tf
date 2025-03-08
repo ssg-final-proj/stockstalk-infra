@@ -13,7 +13,7 @@ resource "aws_db_subnet_group" "tf_rds_subnet_group" {
 resource "aws_security_group" "tf_rds_sg" {
   name        = var.tf_rds_sg_name
   description = "Security group for RDS"
-  vpc_id      = aws_vpc.tf_vpc.id
+  vpc_id      = data.terraform_remote_state.network.outputs.vpc_id
 
   # 관리 목적으로 Bastion Host에서 접근 허용 (필요 시)
   ingress {
