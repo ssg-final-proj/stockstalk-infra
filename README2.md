@@ -18,6 +18,18 @@ terraform init
 terraform apply --auto-approve
 ```
 
+# terraform-infra output
+```
+Apply complete! Resources: 10 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+dynamodb_table_name = "tf-terraform-lock-table"
+route53_hosted_zone_id = "Z020614932P7O9TVZVBXK"
+s3_bucket_name = "tf-terraform-state-bucket-xvpie8v5"
+s3_bucket_region = "ap-northeast-2"
+```
+
 <br>
 <br>
 <br>
