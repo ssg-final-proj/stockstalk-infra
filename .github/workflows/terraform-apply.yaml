@@ -37,7 +37,7 @@ jobs:
     # 4. Slack 알림 전송 (vpc 작업 시작)
     - name: Notify VPC Update via Slack
       run: |
-        curl -X POST -H 'Content-type: application/json' --data '{"text":"Terraform VPC folder is being updated automatically."}' ${{ secrets.SLACK_WEBHOOK_URL }}
+        curl -X POST -H 'Content-type: application/json' --data '{"text":"✅Terraform VPC folder is being updated automatically✅"}' ${{ secrets.SLACK_WEBHOOK_URL }}
 
     # 5. Terraform 초기화 (백엔드 설정)
     - name: Terraform Init for VPC
@@ -59,6 +59,11 @@ jobs:
     - name: Terraform Apply for VPC
       run: terraform apply -auto-approve tfplan
       working-directory: ./terraform-vpc
+
+    # 8. Slack 알림 전송 (addons 작업 완료)
+    - name: Notify Addons Update Completion via Slack
+      run: |
+        curl -X POST -H 'Content-type: application/json' --data '{"text":"🎉Terraform VPC folder update has been completed successfully🎉"}' ${{ secrets.SLACK_WEBHOOK_URL }}
 
   terraform-addons:
     needs: terraform-vpc  # vpc 작업이 완료된 후 실행되도록 설정
@@ -87,7 +92,7 @@ jobs:
     # 4. Slack 알림 전송 (addons 작업 시작)
     - name: Notify Addons Update via Slack
       run: |
-        curl -X POST -H 'Content-type: application/json' --data '{"text":"Terraform Addons folder is being updated automatically."}' ${{ secrets.SLACK_WEBHOOK_URL }}
+        curl -X POST -H 'Content-type: application/json' --data '{"text":"✅Terraform Addons folder is being updated automatically✅"}' ${{ secrets.SLACK_WEBHOOK_URL }}
         
     # 7. Terraform 초기화 (백엔드 설정)
     - name: Terraform Init for Addons
@@ -103,3 +108,8 @@ jobs:
     - name: Terraform Apply for Addons
       run: terraform apply -auto-approve tfplan
       working-directory: ./terraform-addons
+
+    # 8. Slack 알림 전송 (addons 작업 완료)
+    - name: Notify Addons Update Completion via Slack
+      run: |
+        curl -X POST -H 'Content-type: application/json' --data '{"text":"🎉Terraform Addons folder update has been completed successfully🎉"}' ${{ secrets.SLACK_WEBHOOK_URL }}
