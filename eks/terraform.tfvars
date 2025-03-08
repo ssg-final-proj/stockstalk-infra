@@ -3,6 +3,9 @@ region = "ap-northeast-2"
 s3_bucket_name = "tf-terraform-state-bucket-vss-2025"
 s3_bucket_key = "terraform/network/terraform.tfstate"
 
+route53_zone_name = "tf.private.com"
+rds_dns_name = "rds.tf.private.com"
+
 tf_rds_subnet_group_name = "tf-rds-subnet-group"
 tf_rds_sg_name = "tf-rds-sg"
 rds_instance_class = "db.t3.micro"
