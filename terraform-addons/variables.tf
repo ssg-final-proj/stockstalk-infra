@@ -7,7 +7,6 @@ variable "region" {
 variable "s3_bucket_name" {
   description = "state 파일 저장할 s3 버킷 이름"
   type = string
-  default = "tf-terraform-state-bucket-jrn63fgd"  # 수정 필요!!
 }
 
 variable "s3_bucket_key" {
@@ -31,5 +30,4 @@ variable "s3_bucket_region" {
 variable "route53_hosted_zone_id" {
   description = "Route53 퍼블릭 호스팅 영역 ID"
   type = string
-  default = "XXXX"
 } 
