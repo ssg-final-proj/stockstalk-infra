@@ -18,3 +18,8 @@ output "private_subnet_ids" {
 output "bastion_sg_id" {
   value = aws_security_group.tf_bastion_sg.id
 }
+
+# 프라이빗 서브넷 IDs (EKS 클러스터 및 노드 그룹용)
+output "rds_subnet_ids" {
+  value = [aws_subnet.tf_rds_sub_1.id, aws_subnet.tf_rds_sub_2.id]
+}
