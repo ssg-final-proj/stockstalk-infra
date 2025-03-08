@@ -5,7 +5,7 @@ data "terraform_remote_state" "eks" {
   config = {
     bucket = var.s3_bucket_name
     key    = var.s3_bucket_key
-    region = var.s3_bucket_region
+    region = var.region
   }
 }
 
