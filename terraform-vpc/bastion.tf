@@ -10,7 +10,6 @@ resource "aws_security_group" "tf_bastion_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -22,7 +21,6 @@ resource "aws_security_group" "tf_bastion_sg" {
     Name = "tf_bastion_sg"
   }
 }
-
 
 # Bastion Host EC2 instance
 resource "aws_instance" "tf_bastion" {
