@@ -17,6 +17,11 @@ private_subnets = {
   "subnet_2" = "10.0.4.0/24"
 }
 
+rds_subnets = {
+  "subnet_1" = "10.0.5.0/24"
+  "subnet_2" = "10.0.6.0/24"
+}
+
 bastion_ami_id = "ami-0a20b1b99b215fb27"
 bastion_instance_type = "t3.micro"
 tf_bastion_key_name = "tf-bastion-key"
