@@ -5,10 +5,6 @@ s3_bucket_key = "terraform/network/terraform.tfstate"
 
 tf_rds_subnet_group_name = "tf-rds-subnet-group"
 tf_rds_sg_name = "tf-rds-sg"
-rds_subnets = {
-  "subnet_1" = "10.0.5.0/24"
-  "subnet_2" = "10.0.6.0/24"
-}
 rds_instance_class = "db.t3.micro"
 rds_storage = 20
 rds_engine = "mysql"
