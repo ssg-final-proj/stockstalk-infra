@@ -53,7 +53,7 @@ resource "aws_eks_node_group" "tf_eks_managed_node_group" {
   cluster_name    = aws_eks_cluster.tf_eks_cluster.name                       # (Required)
   node_group_name = var.eks_node_group_name                               # (Optional)
   node_role_arn   = aws_iam_role.tf_eks_managed_node_group_iam_role.arn       # (Required)
-  subnet_ids      = [aws_subnet.tf_pri_sub_1.id, aws_subnet.tf_pri_sub_2.id]  # (Required)
+  subnet_ids      = [data.terraform_remote_state.network.outputs.private_subnet_ids]  # (Required)
 
   launch_template {
     id      = aws_launch_template.tf_eks_node_lt.id
@@ -164,7 +164,7 @@ resource "aws_security_group" "tf_eks_node_group_sg" {
     from_port       = 0
     to_port         = 0
     protocol        = "-1"
-    security_groups = [aws_security_group.tf_bastion_sg.id]
+    security_groups = [data.terraform_remote_state.network.outputs.bastion_sg_id]
   }
 
   ingress {
