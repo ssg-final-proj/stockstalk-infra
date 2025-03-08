@@ -1,7 +1,6 @@
 variable "region" {
   description = "생성할 리전"
   type = string
-  default = "ap-northeast-2"  # 서울 리전
 }
 
 variable "s3_bucket_name" {
@@ -12,13 +11,11 @@ variable "s3_bucket_name" {
 variable "s3_bucket_key" {
   description = "state 파일 저장할 s3 버킷 key"
   type = string
-  default = "terraform/addons/terraform.tfstate"
 }
 
 # variable "dynamodb_table_name" {
 #   description = "state 파일 저장할 DynamoDB 테이블 이름"
 #   type = string
-#   default = "tf-terraform-lock-table"
 # }
 
 variable "route53_hosted_zone_id" {
