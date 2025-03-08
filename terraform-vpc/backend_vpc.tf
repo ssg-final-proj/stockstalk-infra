@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket         = "tf-terraform-state-bucket-apucpa4m"
+    bucket         = "tf-terraform-state-bucket-xvpie8v5"
     key            = "terraform/vpc/terraform.tfstate"
     region         = "ap-northeast-2"
     encrypt        = true
