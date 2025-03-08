@@ -22,7 +22,6 @@ resource "aws_security_group" "tf_bastion_sg" {
   }
 }
 
-
 # Bastion Host EC2 instance
 resource "aws_instance" "tf_bastion" {
   ami           = var.bastion_ami_id
