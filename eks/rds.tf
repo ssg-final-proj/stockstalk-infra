@@ -20,7 +20,7 @@ resource "aws_security_group" "tf_rds_sg" {
     from_port        = 3306
     to_port          = 3306
     protocol         = "tcp"
-    security_groups  = [aws_security_group.tf_bastion_sg.id]
+    security_groups  = [data.terraform_remote_state.network.outputs.bastion_sg_id]
   }
 
   # EKS managed Node Group에서 접근 허용 추가
