@@ -1,0 +1,122 @@
+name: Terraform Apply
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'network/**'
+      - 'eks/**'
+      - 'addons/**'
+
+  workflow_dispatch:  # 수동 실행 기능 추가
+
+jobs:
+  terraform-network:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    # 1. 저장소 체크아웃
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 2. Terraform 설치
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.10.5
+
+    # 3. AWS 인증 설정 (GitHub Secrets 사용)
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
+
+    # 4. Terraform 초기화 (백엔드 설정)
+    - name: Terraform Init for Network
+      run: terraform init -reconfigure
+      working-directory: ./network
+
+    - name: Display tfvars contents
+      run: |
+        echo "terraform.tfvars 파일 내용:"
+        cat ./network/terraform.tfvars
+
+    # 5. Terraform Plan (변경사항 미리 확인)
+    - name: Terraform Plan for Network
+      run: terraform plan -out=tfplan
+      working-directory: ./network
+
+    # 6. Terraform Apply (자동 승인)
+    - name: Terraform Apply for Network
+      run: terraform apply -auto-approve tfplan
+      working-directory: ./network
+
+  terraform-eks:
+    needs: terraform-network  # network 작업이 완료된 후 실행
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.10.5
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
+
+    - name: Terraform Init for EKS
+      run: terraform init -reconfigure
+      working-directory: ./eks
+
+    - name: Terraform Plan for EKS
+      run: terraform plan -out=tfplan
+      working-directory: ./eks
+
+    - name: Terraform Apply for EKS
+      run: terraform apply -auto-approve tfplan
+      working-directory: ./eks
+
+  terraform-addons:
+    needs: terraform-eks  # EKS 작업이 완료된 후 실행
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.10.5
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-northeast-2
+
+    - name: Terraform Init for Addons
+      run: terraform init -reconfigure
+      working-directory: ./addons
+
+    - name: Terraform Plan for Addons
+      run: terraform plan -out=tfplan
+      working-directory: ./addons
+
+    - name: Terraform Apply for Addons
+      run: terraform apply -auto-approve tfplan
+      working-directory: ./addons
