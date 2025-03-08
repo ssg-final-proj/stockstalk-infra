@@ -2,14 +2,14 @@
 
 ```
 # GitHub에서 Terraform 코드 clone <br>
-git clone -b 19-terraform https://github.com/hj-s18/terraform-aws.git
+git clone https://github.com/miniproj3/stockstalk-infra.git infra
 
-# terraform-base 폴더 들어가서 init, apply <br>
+# terraform-infra 폴더 들어가서 init, apply <br>
 terraform init
 terraform apply --auto-approve
 
 
-#### S3 버킷 생성됨, DynamoDB 테이블 생성됨
+#### S3 버킷 생성됨, DynamoDB 테이블 생성됨, tf-bastion-key.pem 생성됨
 #### 생성된 S3와 DynamoDB 관련 output 참고하여 terraform 폴더의 backend_s3.tf 파일 수정
 
 
