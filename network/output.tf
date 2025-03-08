@@ -14,17 +14,7 @@ output "private_subnet_ids" {
   value = [aws_subnet.tf_pri_sub_1.id, aws_subnet.tf_pri_sub_2.id]
 }
 
-# 퍼블릭 서브넷 IDs
-output "public_subnet_ids" {
-  value = [aws_subnet.tf_pub_sub_1.id, aws_subnet.tf_pub_sub_2.id]
-}
-
-# Bastion 보안 그룹 ID
+# Bastion 보안 그룹 ID (EKS와 통신하기 위한 인바운드, 아웃바운드 설정)
 output "bastion_sg_id" {
   value = aws_security_group.tf_bastion_sg.id
-}
-
-# EKS 클러스터 보안 그룹 ID
-output "eks_sg_id" {
-  value = aws_security_group.tf_eks_cluster_sg.id
 }
