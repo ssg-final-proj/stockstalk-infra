@@ -38,6 +38,11 @@ variable "private_subnets" {
   type        = map(string)
 }
 
+variable "rds_subnets" {
+  description = "RDS 서브넷 CIDRs"
+  type        = map(string)
+}
+
 ################ bastion.tf ################
 variable "tf_bastion_key_name" {
   description = "bastion host's key name"
