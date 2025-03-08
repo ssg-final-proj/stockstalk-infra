@@ -160,3 +160,9 @@ variable "external_dns_route53_policy_name" {
   description = "Route 53 조작을 위한 IAM 정책 이름"
   type        = string
 }
+
+variable "tf_eks_node_group_sg_name" {
+  description = "EKS 노드그룹 보안 그룹 이름"
+  type        = string
+}
+
