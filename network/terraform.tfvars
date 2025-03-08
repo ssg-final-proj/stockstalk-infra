@@ -1,8 +1,5 @@
 region = "ap-northeast-2"
 
-route53_zone_name = "tf.private.com"
-rds_dns_name = "rds.tf.private.com"
-
 vpc_cidr = "10.0.0.0/16"
 
 public_subnets = {
