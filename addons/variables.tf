@@ -15,12 +15,6 @@ variable "s3_bucket_key" {
   default = "terraform/addons/terraform.tfstate"
 }
 
-variable "s3_bucket_region" {
-  description = "state 파일 저장할 s3 버킷 리전"
-  type = string
-  default = "ap-northeast-2"
-}
-
 # variable "dynamodb_table_name" {
 #   description = "state 파일 저장할 DynamoDB 테이블 이름"
 #   type = string
