@@ -59,7 +59,3 @@ variable "tf_bastion_sg_name" {
   type = string
 }
 
-variable "tf_eks_node_group_sg_name" {
-  description = "EKS 노드그룹의 보안그룹 이름"
-  type        = string
-}
