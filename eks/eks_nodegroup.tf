@@ -53,7 +53,7 @@ resource "aws_eks_node_group" "tf_eks_managed_node_group" {
   cluster_name    = aws_eks_cluster.tf_eks_cluster.name                       # (Required)
   node_group_name = var.eks_node_group_name                               # (Optional)
   node_role_arn   = aws_iam_role.tf_eks_managed_node_group_iam_role.arn       # (Required)
-  subnet_ids      = [data.terraform_remote_state.network.outputs.private_subnet_ids]  # (Required)
+  subnet_ids      = tolist(data.terraform_remote_state.network.outputs.private_subnet_ids)  # (Required)
 
   launch_template {
     id      = aws_launch_template.tf_eks_node_lt.id
