@@ -9,140 +9,51 @@ on:
       - 'eks/**'
       - 'addons/**'
 
-  workflow_dispatch:  # 수동 실행 기능 추가
+  workflow_dispatch:
 
 jobs:
   terraform-network:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    # 1. 저장소 체크아웃
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.10.5
 
-    # 2. Terraform 설치
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: 1.10.5
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
 
-    # 3. AWS 인증 설정 (GitHub Secrets 사용)
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-northeast-2
+      - name: Terraform Init
+        run: terraform init -reconfigure
+        working-directory: ./network
 
-    # 4. Slack 알림 전송 (네트워크 작업 시작)
-    - name: Notify Network Update via Slack
-      run: |
-        curl -X POST -H 'Content-type: application/json' --data '{"text":"✅Terraform Network folder is being updated automatically."}' ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Check Terraform State (S3 or Local?)
+        run: terraform state list || echo "No state found"
+        working-directory: ./network
 
-    # 5. Terraform 초기화 (백엔드 설정)
-    - name: Terraform Init for Network
-      run: terraform init -reconfigure
-      working-directory: ./network
+      - name: Check Local Terraform State File
+        run: ls -la
+        working-directory: ./network
 
-    - name: Display tfvars contents
-      run: |
-        echo "terraform.tfvars 파일 내용:"
-        cat ./network/terraform.tfvars
+      - name: Check S3 Access from GitHub Actions
+        run: aws s3 ls s3://tf-terraform-state-bucket-vss-2025/
 
-    # 6. Terraform Plan (변경사항 미리 확인)
-    - name: Terraform Plan for Network
-      run: terraform plan -out=tfplan
-      working-directory: ./network
+      - name: Check Terraform Backend Configuration
+        run: cat .terraform/terraform.tfstate || echo "No backend state file found"
+        working-directory: ./network
 
-    # 7. Terraform Apply (자동 승인)
-    - name: Terraform Apply for Network
-      run: terraform apply -auto-approve tfplan
-      working-directory: ./network
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+        working-directory: ./network
 
-    # 8. Slack 알림 전송 (네트워크 작업 완료)
-    - name: Notify Network Update Completion via Slack
-      run: |
-        curl -X POST -H 'Content-type: application/json' --data '{"text":"🎉Terraform Network folder update has been completed successfully."}' ${{ secrets.SLACK_WEBHOOK_URL }}
-
-  terraform-eks:
-    needs: terraform-network  # network 작업이 완료된 후 실행
-    runs-on: ubuntu-latest
-
-    steps:
-
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: 1.10.5
-
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-northeast-2
-
-    - name: Notify EKS Update via Slack
-      run: |
-        curl -X POST -H 'Content-type: application/json' --data '{"text":"✅Terraform EKS folder is being updated automatically."}' ${{ secrets.SLACK_WEBHOOK_URL }}
-
-    - name: Terraform Init for EKS
-      run: terraform init -reconfigure
-      working-directory: ./eks
-
-    - name: Terraform Plan for EKS
-      run: terraform plan -out=tfplan
-      working-directory: ./eks
-
-    - name: Terraform Apply for EKS
-      run: terraform apply -auto-approve tfplan
-      working-directory: ./eks
-
-    - name: Notify EKS Update Completion via Slack
-      run: |
-        curl -X POST -H 'Content-type: application/json' --data '{"text":"🎉Terraform EKS folder update has been completed successfully."}' ${{ secrets.SLACK_WEBHOOK_URL }}
-
-  terraform-addons:
-    needs: terraform-eks  # EKS 작업이 완료된 후 실행
-    runs-on: ubuntu-latest
-
-    steps:
-
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: 1.10.5
-
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ap-northeast-2
-
-    - name: Notify Addons Update via Slack
-      run: |
-        curl -X POST -H 'Content-type: application/json' --data '{"text":"✅Terraform Addons folder is being updated automatically."}' ${{ secrets.SLACK_WEBHOOK_URL }}
-
-    - name: Terraform Init for Addons
-      run: terraform init -reconfigure
-      working-directory: ./addons
-
-    - name: Terraform Plan for Addons
-      run: terraform plan -out=tfplan
-      working-directory: ./addons
-
-    - name: Terraform Apply for Addons
-      run: terraform apply -auto-approve tfplan
-      working-directory: ./addons
-
-    - name: Notify Addons Update Completion via Slack
-      run: |
-        curl -X POST -H 'Content-type: application/json' --data '{"text":"🎉Terraform Addons folder update has been completed successfully."}' ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
+        working-directory: ./network
