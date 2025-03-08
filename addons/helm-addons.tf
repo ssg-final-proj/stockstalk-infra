@@ -35,7 +35,7 @@ module "eks_blueprints_addons" {
   ### terraform-vpc에서 주석처리했던 helm으로 설치하는 addon들
   enable_aws_load_balancer_controller    = true
   # enable_cluster_proportional_autoscaler = true   # 이것 때문에 terraform apply 가 계속 오류났었음 (사용하면 HPA를 사용하지 않을 수도 있을 것 같아서 하고싶었는데 실패함)
-  enable_karpenter                       = true
+  enable_karpenter                       = false
   enable_kube_prometheus_stack           = true
   enable_metrics_server                  = true
   enable_external_dns                    = true
