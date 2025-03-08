@@ -1,5 +1,8 @@
 region = "ap-northeast-2"
 
+s3_bucket_name = "tf-terraform-state-bucket-vss-2025"
+s3_bucket_key = "terraform/network/terraform.tfstate"
+
 tf_rds_subnet_group_name = "tf-rds-subnet-group"
 tf_rds_sg_name = "tf-rds-sg"
 rds_subnets = {
