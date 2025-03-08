@@ -6,10 +6,7 @@ resource "aws_eks_cluster" "tf_eks_cluster" {
   
   vpc_config {                                          # (Required)
 
-    subnet_ids              = [                         # (Required) 컨트롤 플래인과 통신할 ENI가 배치될 서브넷
-      aws_subnet.tf_pri_sub_1.id,
-      aws_subnet.tf_pri_sub_2.id
-    ]
+    subnet_ids              = data.terraform_remote_state.network.outputs.private_subnet_ids                # (Required) 컨트롤 플래인과 통신할 ENI가 배치될 서브넷
 
     endpoint_public_access  = true                      # (Optional) 컨트롤 플래인이 kubectl과 통신할 때 사용하는 endpoint : 모듈로 helm을 설치할 때 클러스터 외부에서 설치해야 함
     endpoint_private_access = true                      # (Optional) 컨트롤 플래인이 node의 kubelet과 통신할 때 사용하는 endpoint
@@ -63,7 +60,7 @@ resource "aws_security_group" "tf_eks_cluster_sg" {
     to_port     = 443
     protocol    = "tcp"
     description = "Allow bastion to communicate with the cluster API"
-    security_groups = [aws_security_group.tf_bastion_sg.id]
+    security_groups = [data.terraform_remote_state.network.outputs.bastion_sg_id]
   }
 
   # worker nodes → cluster API
