@@ -55,7 +55,7 @@ resource "aws_iam_role_policy_attachment" "tf_eks_cluster_policy_AmazonEKSCluste
 resource "aws_security_group" "tf_eks_cluster_sg" {
   name        = var.tf_eks_cluster_sg_name
   description = "EKS Cluster Security Group"
-  vpc_id      = aws_vpc.tf_vpc.id
+  vpc_id      = data.terraform_remote_state.network.outputs.vpc_id
 
   # bastion → cluster API
   ingress {
