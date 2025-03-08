@@ -1,7 +1,7 @@
 # RDS DB subnet group resource
 resource "aws_db_subnet_group" "tf_rds_subnet_group" {
   name       = var.tf_rds_subnet_group_name
-  subnet_ids = [data.terraform_remote_state.network.outputs.rds_subnet_ids]
+  subnet_ids = tolist(data.terraform_remote_state.network.outputs.rds_subnet_ids)
 
   tags = {
     Name = "tf_rds_subnet_group"
