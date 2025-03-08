@@ -1,4 +1,4 @@
-resource "aws_route53_zone" "tf_route53_public" {
+resource "aws_route53_zone" "tf_route53_public" {  # 호스팅 영역 생성
   name = "stockstalk.store"   # (Required) The name of the hosted zone.
   force_destroy = true        # (Optional) Whether to destroy all records (possibly managed outside of Terraform) in the zone when destroying the zone. 운영 환경에서는 false로 둬야 함!
 
