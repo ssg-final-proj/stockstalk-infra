@@ -4,6 +4,17 @@ variable "region" {
   type        = string
 }
 
+################ data.tf ################
+variable "s3_bucket_name" {
+  description = "state 파일 저장할 s3 버킷 이름"
+  type = string
+}
+
+variable "s3_bucket_key" {
+  description = "state 파일 저장할 s3 버킷 key"
+  type = string
+}
+
 ################ rds.tf ################
 variable "rds_subnets" {
   description = "RDS 서브넷 CIDRs"
