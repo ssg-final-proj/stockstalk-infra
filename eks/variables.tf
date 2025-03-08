@@ -16,10 +16,6 @@ variable "s3_bucket_key" {
 }
 
 ################ rds.tf ################
-variable "rds_subnets" {
-  description = "RDS 서브넷 CIDRs"
-  type        = map(string)
-}
 
 variable "rds_instance_class" {
   description = "RDS 인스턴스 유형"
