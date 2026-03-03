@@ -45,6 +45,12 @@ Helm 기반 Kubernetes addon 배포 구성을 관리합니다.
 - `helm-addons.tf`
 - `provider.tf`, `variables.tf`, `data.tf`, `terraform.tfvars`
 
+## 접근/작업 방식
+
+기본 접근은 Session Manager(SSM) 기준으로 합니다.  
+Terraform은 로컬에서 실행하고, kubectl/helm 작업도 기본은 로컬에서 kubeconfig로 수행합니다.  
+bastion은 필요할 때만 제한적으로 사용합니다.
+
 ## 적용/실행
 
 폴더별로 동일하게 실행합니다.
