@@ -60,7 +60,7 @@ bastion은 필요할 때만 제한적으로 사용합니다.
 terraform init
 terraform apply
 
-# 2) EKS 연결 (클러스터 이름은 환경에 맞게)
+# 2) EKS 연결
 aws eks --region ap-northeast-2 update-kubeconfig --name <cluster-name>
 kubectl get nodes
 
