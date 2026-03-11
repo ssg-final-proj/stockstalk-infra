@@ -133,8 +133,3 @@ kubectl get nodes
 
 자세한 환경 준비, 도구 설치, External Secrets Operator 설치 흐름은 `README2.md`에 정리되어 있습니다.
 
-## Related Repositories
-
-- [Application](https://github.com/ssg-final-proj/stockstalk-dev)
-- [Infrastructure](https://github.com/ssg-final-proj/stockstalk-infra)
-- [Kubernetes Manifests](https://github.com/ssg-final-proj/k8s-yaml)
